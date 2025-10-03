@@ -4,11 +4,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BarChart, Users, TrendingUp, FileText } from "lucide-react";
+import { BarChart, Users, TrendingUp, FileText, Home } from "lucide-react";
 import valenzuelaSeal from "@/assets/valenzuela-seal.png";
 import { toast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const Admin = () => {
+  const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -122,9 +124,15 @@ const Admin = () => {
                 <p className="text-sm text-muted-foreground">Analytics Dashboard</p>
               </div>
             </div>
-            <Button variant="outline" onClick={() => setIsAuthenticated(false)}>
-              Logout
-            </Button>
+            <div className="flex gap-2">
+              <Button variant="outline" onClick={() => navigate("/")}>
+                <Home className="w-4 h-4" />
+                Back to Home
+              </Button>
+              <Button variant="outline" onClick={() => setIsAuthenticated(false)}>
+                Logout
+              </Button>
+            </div>
           </div>
         </div>
       </div>
