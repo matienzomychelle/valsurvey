@@ -331,7 +331,10 @@ const Survey = () => {
                 </CardContent>
               </Card>
 
-              <div className="flex justify-center pt-4">
+              <div className="flex justify-center gap-4 pt-4">
+                <Button type="button" variant="outline" size="lg" onClick={() => navigate('/')}>
+                  Back to Home
+                </Button>
                 <Button type="submit" size="lg" className="px-12">
                   Submit Survey
                 </Button>
