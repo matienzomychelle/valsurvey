@@ -23,7 +23,7 @@ const About = () => {
 
           <div className="space-y-6 text-foreground/90">
             <p className="text-lg leading-relaxed">
-              The <span className="font-semibold text-foreground">Valenzuela e-Survey Management System (VeSMS)</span> aims to evaluate and understand the 
+              The <span className="font-semibold text-foreground">ValSurvey+</span> aims to evaluate and understand the 
               overall experience of clients who have recently transacted with government offices. Through this 
               feedback mechanism, the government seeks to gather valuable insights directly from citizens to 
               assess the quality, efficiency, and responsiveness of public service delivery. The information 
