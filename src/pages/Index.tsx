@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useNavigate } from "react-router-dom";
 import { BarChart3, Shield, Smartphone, TrendingUp, QrCode, Lock } from "lucide-react";
 import valenzuelaSeal from "@/assets/valenzuela-seal.png";
@@ -7,6 +9,12 @@ import heroImage from "@/assets/hero-bg.jpg";
 
 const Index = () => {
   const navigate = useNavigate();
+  const [showPrivacyDialog, setShowPrivacyDialog] = useState(false);
+
+  const handleConsentAndNavigate = () => {
+    setShowPrivacyDialog(false);
+    navigate('/survey');
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -36,7 +44,7 @@ const Index = () => {
               </Button>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary" onClick={() => navigate('/survey')} className="text-lg px-8">
+              <Button size="lg" variant="secondary" onClick={() => setShowPrivacyDialog(true)} className="text-lg px-8">
                 Take Survey Now
               </Button>
               <Button size="lg" variant="secondary" onClick={() => navigate('/about')} className="text-lg px-8">
@@ -135,7 +143,7 @@ const Index = () => {
               Your feedback matters. Take a few minutes to share your experience 
               and help improve public services in Valenzuela.
             </p>
-            <Button size="lg" variant="secondary" onClick={() => navigate('/survey')} className="text-lg px-12">
+            <Button size="lg" variant="secondary" onClick={() => setShowPrivacyDialog(true)} className="text-lg px-12">
               Start Survey
             </Button>
           </div>
@@ -160,6 +168,57 @@ const Index = () => {
           </div>
         </div>
       </footer>
+
+      {/* Data Privacy Consent Dialog */}
+      <Dialog open={showPrivacyDialog} onOpenChange={setShowPrivacyDialog}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-primary">
+              Data Privacy Notice (R.A. 10173)
+            </DialogTitle>
+            <DialogDescription className="sr-only">
+              Data Privacy Notice for ValSurvey+ Customer Feedback System
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 text-foreground">
+            <p className="leading-relaxed">
+              By filling out this form, you agree to provide your personal information voluntarily. In compliance with{" "}
+              <span className="font-semibold">R.A. 10173 or the Data Privacy Act of 2012</span>, we assure you that:
+            </p>
+
+            <ol className="space-y-3 list-none">
+              <li className="flex gap-3">
+                <span className="font-bold text-primary shrink-0">1.</span>
+                <span>
+                  <span className="font-semibold">Your information will be collected and processed only for official and legitimate purposes related to this system.</span>
+                </span>
+              </li>
+              <li className="flex gap-3">
+                <span className="font-bold text-primary shrink-0">2.</span>
+                <span>
+                  <span className="font-semibold">Your data will be kept secure and confidential, and will not be shared with third parties without your consent, unless required by law.</span>
+                </span>
+              </li>
+              <li className="flex gap-3">
+                <span className="font-bold text-primary shrink-0">3.</span>
+                <span>
+                  <span className="font-semibold">You have the right to access, correct, or request deletion of your personal information at any time.</span>
+                </span>
+              </li>
+            </ol>
+          </div>
+
+          <DialogFooter className="flex-col sm:flex-row gap-2">
+            <Button variant="outline" onClick={() => setShowPrivacyDialog(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleConsentAndNavigate} className="bg-primary hover:bg-primary/90">
+              I Consent
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
