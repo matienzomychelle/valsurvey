@@ -14,6 +14,50 @@ export type Database = {
   }
   public: {
     Tables: {
+      questions: {
+        Row: {
+          created_at: string
+          id: string
+          options: Json | null
+          order_index: number
+          question_text: string
+          question_type: string
+          required: boolean
+          survey_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          options?: Json | null
+          order_index: number
+          question_text: string
+          question_type: string
+          required?: boolean
+          survey_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          options?: Json | null
+          order_index?: number
+          question_text?: string
+          question_type?: string
+          required?: boolean
+          survey_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "questions_survey_id_fkey"
+            columns: ["survey_id"]
+            isOneToOne: false
+            referencedRelation: "surveys"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       survey_responses: {
         Row: {
           age: number | null
@@ -38,6 +82,7 @@ export type Database = {
           sqd7: number | null
           sqd8: number | null
           suggestions: string | null
+          survey_id: string | null
         }
         Insert: {
           age?: number | null
@@ -62,6 +107,7 @@ export type Database = {
           sqd7?: number | null
           sqd8?: number | null
           suggestions?: string | null
+          survey_id?: string | null
         }
         Update: {
           age?: number | null
@@ -86,6 +132,42 @@ export type Database = {
           sqd7?: number | null
           sqd8?: number | null
           suggestions?: string | null
+          survey_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "survey_responses_survey_id_fkey"
+            columns: ["survey_id"]
+            isOneToOne: false
+            referencedRelation: "surveys"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      surveys: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          status?: string
+          title?: string
+          updated_at?: string
         }
         Relationships: []
       }

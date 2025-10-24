@@ -8,6 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LogOut, Users, TrendingUp, BarChart3 } from "lucide-react";
 import type { Session } from "@supabase/supabase-js";
+import SurveyManagement from "@/components/admin/SurveyManagement";
 
 interface SurveyResponse {
   id: string;
@@ -209,6 +210,7 @@ const Admin = () => {
           <TabsList>
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="responses">Responses</TabsTrigger>
+            <TabsTrigger value="surveys">Surveys</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
           </TabsList>
 
@@ -263,6 +265,10 @@ const Admin = () => {
                 </Table>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="surveys" className="space-y-4">
+            <SurveyManagement />
           </TabsContent>
 
           <TabsContent value="analytics" className="space-y-4">
