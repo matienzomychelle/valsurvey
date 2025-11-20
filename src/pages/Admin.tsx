@@ -10,6 +10,7 @@ import { LogOut, Users, TrendingUp, BarChart3 } from "lucide-react";
 import type { Session } from "@supabase/supabase-js";
 import SurveyManagement from "@/components/admin/SurveyManagement";
 import ResponseMonitoring from "@/components/admin/ResponseMonitoring";
+import Analytics from "@/components/admin/Analytics";
 
 interface SurveyResponse {
   id: string;
@@ -244,17 +245,7 @@ const Admin = () => {
           </TabsContent>
 
           <TabsContent value="analytics" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Advanced Analytics</CardTitle>
-                <CardDescription>Coming soon</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">
-                  Advanced analytics features will be available in future updates.
-                </p>
-              </CardContent>
-            </Card>
+            <Analytics responses={responses} />
           </TabsContent>
         </Tabs>
       </main>
