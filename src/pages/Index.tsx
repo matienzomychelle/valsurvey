@@ -19,8 +19,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Top Navigation */}
-      <div className="fixed top-0 right-0 z-50 p-4">
-        <Button size="lg" variant="outline" onClick={() => navigate('/admin')} className="text-lg px-8 bg-primary-foreground/10 hover:bg-primary-foreground/20 text-primary-foreground border-primary-foreground/30">
+      <div className="fixed top-0 right-0 z-50 p-4 animate-slide-in-right">
+        <Button size="lg" variant="outline" onClick={() => navigate('/admin')} className="text-lg px-8 bg-primary-foreground/10 hover:bg-primary-foreground/20 text-primary-foreground border-primary-foreground/30 transition-transform hover:scale-105">
           Admin Dashboard
         </Button>
       </div>
@@ -32,24 +32,24 @@ const Index = () => {
       >
         <div className="container mx-auto px-4 py-20 md:py-32">
           <div className="max-w-4xl mx-auto text-center text-primary-foreground">
-            <div className="flex justify-center mb-8">
+            <div className="flex justify-center mb-8 animate-fade-in">
               <img src={valenzuelaSeal} alt="City of Valenzuela Seal" className="w-32 h-32 md:w-40 md:h-40" />
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight animate-fade-in-up" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
               ValSurvey+
             </h1>
-            <p className="text-xl md:text-2xl mb-4 opacity-95">
+            <p className="text-xl md:text-2xl mb-4 opacity-95 animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
               Digital ARTA-Compliant Customer Feedback System
             </p>
-            <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
+            <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
               City Government of Valenzuela's modern solution for collecting, analyzing, 
               and acting on citizen feedback to improve public services.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" variant="secondary" onClick={() => setShowPrivacyDialog(true)} className="text-lg px-8">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
+              <Button size="lg" variant="secondary" onClick={() => setShowPrivacyDialog(true)} className="text-lg px-8 transition-transform hover:scale-105">
                 Take Survey Now
               </Button>
-              <Button size="lg" variant="secondary" onClick={() => navigate('/about')} className="text-lg px-8">
+              <Button size="lg" variant="secondary" onClick={() => navigate('/about')} className="text-lg px-8 transition-transform hover:scale-105">
                 About Survey
               </Button>
             </div>
@@ -60,7 +60,7 @@ const Index = () => {
       {/* Features Section */}
       <section className="py-20 bg-gradient-to-br from-background to-muted/20">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16 animate-fade-in-up">
             <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
               Why ValSurvey+?
             </h2>
@@ -71,7 +71,7 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <Card className="border-primary/20 hover:shadow-lg transition-shadow">
+            <Card className="border-primary/20 hover:shadow-lg transition-all hover:-translate-y-1 animate-fade-in-up" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
               <CardHeader>
                 <Shield className="w-12 h-12 text-primary mb-4" />
                 <CardTitle>ARTA Compliant</CardTitle>
@@ -81,7 +81,7 @@ const Index = () => {
               </CardHeader>
             </Card>
 
-            <Card className="border-primary/20 hover:shadow-lg transition-shadow">
+            <Card className="border-primary/20 hover:shadow-lg transition-all hover:-translate-y-1 animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
               <CardHeader>
                 <Smartphone className="w-12 h-12 text-primary mb-4" />
                 <CardTitle>Multi-Platform</CardTitle>
@@ -91,7 +91,7 @@ const Index = () => {
               </CardHeader>
             </Card>
 
-            <Card className="border-primary/20 hover:shadow-lg transition-shadow">
+            <Card className="border-primary/20 hover:shadow-lg transition-all hover:-translate-y-1 animate-fade-in-up" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
               <CardHeader>
                 <QrCode className="w-12 h-12 text-primary mb-4" />
                 <CardTitle>Easy Access</CardTitle>
@@ -101,7 +101,7 @@ const Index = () => {
               </CardHeader>
             </Card>
 
-            <Card className="border-primary/20 hover:shadow-lg transition-shadow">
+            <Card className="border-primary/20 hover:shadow-lg transition-all hover:-translate-y-1 animate-fade-in-up" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
               <CardHeader>
                 <BarChart3 className="w-12 h-12 text-primary mb-4" />
                 <CardTitle>Real-time Analytics</CardTitle>
@@ -111,7 +111,7 @@ const Index = () => {
               </CardHeader>
             </Card>
 
-            <Card className="border-primary/20 hover:shadow-lg transition-shadow">
+            <Card className="border-primary/20 hover:shadow-lg transition-all hover:-translate-y-1 animate-fade-in-up" style={{ animationDelay: '0.5s', animationFillMode: 'both' }}>
               <CardHeader>
                 <TrendingUp className="w-12 h-12 text-primary mb-4" />
                 <CardTitle>Data-Driven Decisions</CardTitle>
@@ -121,7 +121,7 @@ const Index = () => {
               </CardHeader>
             </Card>
 
-            <Card className="border-primary/20 hover:shadow-lg transition-shadow">
+            <Card className="border-primary/20 hover:shadow-lg transition-all hover:-translate-y-1 animate-fade-in-up" style={{ animationDelay: '0.6s', animationFillMode: 'both' }}>
               <CardHeader>
                 <Lock className="w-12 h-12 text-primary mb-4" />
                 <CardTitle>Secure & Private</CardTitle>
@@ -138,14 +138,14 @@ const Index = () => {
       <section className="py-20 bg-gradient-to-r from-primary to-primary-dark">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center text-primary-foreground">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 animate-fade-in-up">
               Help Us Serve You Better
             </h2>
-            <p className="text-lg mb-8 opacity-90">
+            <p className="text-lg mb-8 opacity-90 animate-fade-in-up" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
               Your feedback matters. Take a few minutes to share your experience 
               and help improve public services in Valenzuela.
             </p>
-            <Button size="lg" variant="secondary" onClick={() => setShowPrivacyDialog(true)} className="text-lg px-12">
+            <Button size="lg" variant="secondary" onClick={() => setShowPrivacyDialog(true)} className="text-lg px-12 transition-transform hover:scale-105 animate-fade-in-up" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
               Start Survey
             </Button>
           </div>

@@ -122,10 +122,10 @@ const Auth = () => {
         </div>
         
         <div className="relative z-10">
-          <h1 className="text-5xl font-bold text-white mb-4 leading-tight">
+          <h1 className="text-5xl font-bold text-white mb-4 leading-tight animate-fade-in-up">
             Welcome to<br />ValSurvey+
           </h1>
-          <p className="text-white/90 text-lg mb-8 max-w-md">
+          <p className="text-white/90 text-lg mb-8 max-w-md animate-fade-in-up" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
             Join our community with a unified and streamlined citizen feedback experience
           </p>
           
@@ -140,7 +140,7 @@ const Auth = () => {
 
       {/* Right Panel - Auth Form */}
       <div className="flex-1 flex items-center justify-center p-8 bg-background">
-        <Card className="w-full max-w-md border-border/50 shadow-lg">
+        <Card className="w-full max-w-md border-border/50 shadow-lg animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold">Admin Access</CardTitle>
             <CardDescription>
