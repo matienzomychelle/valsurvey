@@ -138,15 +138,34 @@ const Survey = () => {
     }
   };
 
+  const getColorClasses = (colorKey: string, isSelected: boolean) => {
+    if (!isSelected) return 'bg-muted/50 border-border hover:border-muted-foreground';
+    
+    switch (colorKey) {
+      case "1":
+        return 'bg-rating-1 border-rating-1 shadow-lg';
+      case "2":
+        return 'bg-rating-2 border-rating-2 shadow-lg';
+      case "3":
+        return 'bg-rating-3 border-rating-3 shadow-lg';
+      case "4":
+        return 'bg-rating-4 border-rating-4 shadow-lg';
+      case "5":
+        return 'bg-rating-5 border-rating-5 shadow-lg';
+      default:
+        return 'bg-muted border-muted shadow-lg';
+    }
+  };
+
   const RatingScale = ({ name, value, onChange }: { name: string; value: string; onChange: (value: string) => void }) => (
     <RadioGroup value={value} onValueChange={onChange} className="flex flex-wrap gap-3 justify-start">
       {[
-        { value: "1", label: "Strongly Disagree", color: "rating-1", emoji: "😞" },
-        { value: "2", label: "Disagree", color: "rating-2", emoji: "🙁" },
-        { value: "3", label: "Neither Agree nor Disagree", color: "rating-3", emoji: "😐" },
-        { value: "4", label: "Agree", color: "rating-4", emoji: "🙂" },
-        { value: "5", label: "Strongly Agree", color: "rating-5", emoji: "😊" },
-        { value: "na", label: "N/A", color: "muted", emoji: "😶" },
+        { value: "1", label: "Strongly Disagree", emoji: "😞" },
+        { value: "2", label: "Disagree", emoji: "🙁" },
+        { value: "3", label: "Neither Agree nor Disagree", emoji: "😐" },
+        { value: "4", label: "Agree", emoji: "🙂" },
+        { value: "5", label: "Strongly Agree", emoji: "😊" },
+        { value: "na", label: "N/A", emoji: "😶" },
       ].map((option) => {
         const isSelected = value === option.value;
         return (
@@ -155,14 +174,7 @@ const Survey = () => {
               htmlFor={`${name}-${option.value}`} 
               className={`cursor-pointer transition-all duration-200 ${isSelected ? 'scale-110' : 'hover:scale-105'}`}
             >
-              <div className={`
-                w-16 h-16 rounded-full flex items-center justify-center text-3xl
-                border-2 transition-all duration-200
-                ${isSelected 
-                  ? `bg-${option.color} border-${option.color} shadow-lg` 
-                  : 'bg-muted/50 border-border hover:border-muted-foreground'
-                }
-              `}>
+              <div className={`w-16 h-16 rounded-full flex items-center justify-center text-3xl border-2 transition-all duration-200 ${getColorClasses(option.value, isSelected)}`}>
                 {option.emoji}
               </div>
               <RadioGroupItem
@@ -181,15 +193,61 @@ const Survey = () => {
   );
 
   return (
-    <div className="min-h-screen relative py-8 px-4 overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/10">
+    <div className="min-h-screen flex relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-primary/10">
       {/* Decorative background elements */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-primary/5 to-transparent rounded-full blur-3xl" />
       </div>
+
+      {/* Sidebar Navigation */}
+      <div className="hidden lg:block w-64 bg-card/95 backdrop-blur-sm border-r border-border sticky top-0 h-screen overflow-y-auto animate-slide-in-right">
+        <div className="p-6">
+          <Button 
+            type="button" 
+            variant="ghost" 
+            size="sm" 
+            onClick={() => navigate('/')}
+            className="w-full justify-start mb-6"
+          >
+            ← Back to Home
+          </Button>
+          
+          <h3 className="font-bold text-sm text-muted-foreground mb-4">Survey Sections</h3>
+          
+          <div className="space-y-2">
+            {[
+              { id: "client-info", label: "Client Information", icon: "👤" },
+              { id: "citizens-charter", label: "Citizen's Charter", icon: "📋" },
+              { id: "service-quality", label: "Service Quality", icon: "⭐" },
+              { id: "additional-feedback", label: "Additional Feedback", icon: "💬" },
+            ].map((section) => (
+              <button
+                key={section.id}
+                onClick={() => {
+                  const element = document.getElementById(section.id);
+                  element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+                className="w-full text-left px-4 py-3 rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-3 group"
+              >
+                <span className="text-2xl group-hover:scale-110 transition-transform">{section.icon}</span>
+                <span className="text-sm font-medium">{section.label}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-8 p-4 bg-muted/50 rounded-lg">
+            <h4 className="font-semibold text-sm mb-2">Progress</h4>
+            <div className="text-xs text-muted-foreground">
+              {Object.values(formData).filter(v => v !== "").length} / {Object.keys(formData).length} fields completed
+            </div>
+          </div>
+        </div>
+      </div>
       
-      <div className="max-w-4xl mx-auto relative z-10">
+      <div className="flex-1 py-8 px-4 overflow-y-auto">
+        <div className="max-w-4xl mx-auto relative z-10">
         <Card className="shadow-2xl backdrop-blur-sm bg-card/95 border-2 border-primary/20 animate-fade-in">
           <CardHeader className="bg-gradient-to-r from-primary via-primary to-primary/90 text-primary-foreground rounded-t-lg relative overflow-hidden">
             <div className="absolute inset-0 bg-grid-white/10 [mask-image:linear-gradient(0deg,white,transparent)]" />
@@ -215,7 +273,7 @@ const Survey = () => {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Demographics Section */}
-              <Card>
+              <Card id="client-info" className="scroll-mt-4">
                 <CardHeader>
                   <CardTitle className="text-lg">Personal Information</CardTitle>
                 </CardHeader>
@@ -307,7 +365,7 @@ const Survey = () => {
               </Card>
 
               {/* Citizen's Charter Section */}
-              <Card>
+              <Card id="citizens-charter" className="scroll-mt-4">
                 <CardHeader>
                   <CardTitle className="text-lg">Citizen's Charter (CC) Awareness</CardTitle>
                   <CardDescription className="mt-2">
@@ -376,7 +434,7 @@ const Survey = () => {
               </Card>
 
               {/* Service Quality Dimensions */}
-              <Card>
+              <Card id="service-quality" className="scroll-mt-4">
                 <CardHeader>
                   <CardTitle className="text-lg">Service Quality Assessment</CardTitle>
                   <CardDescription>Please rate your agreement with each statement</CardDescription>
@@ -406,7 +464,7 @@ const Survey = () => {
               </Card>
 
               {/* Suggestions & Email */}
-              <Card>
+              <Card id="additional-feedback" className="scroll-mt-4">
                 <CardHeader>
                   <CardTitle className="text-lg">Additional Feedback</CardTitle>
                 </CardHeader>
@@ -439,7 +497,7 @@ const Survey = () => {
               </Card>
 
               <div className="flex justify-center gap-4 pt-4">
-                <Button type="button" variant="outline" size="lg" onClick={() => navigate('/')}>
+                <Button type="button" variant="outline" size="lg" onClick={() => navigate('/')} className="lg:hidden">
                   Back to Home
                 </Button>
                 <Button type="submit" size="lg" className="px-12">
@@ -449,6 +507,7 @@ const Survey = () => {
             </form>
           </CardContent>
         </Card>
+        </div>
       </div>
     </div>
   );
