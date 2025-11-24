@@ -46,7 +46,7 @@ All colors MUST be HSL.
     --rating-1: 0 84% 60%;      /* Strongly Disagree - Red */
     --rating-2: 25 95% 53%;     /* Disagree - Orange */
     --rating-3: 45 93% 58%;     /* Neither - Yellow */
-    --rating-4: 142 71% 45%;    /* Agree - Light Green */
+    --rating-4: 84 81% 44%;     /* Agree - Yellow-Green */
     --rating-5: 142 76% 36%;    /* Strongly Agree - Green */
     
     /* Gradients */

@@ -9,7 +9,6 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import valenzuelaSeal from "@/assets/valenzuela-seal.png";
-import { Frown, Meh, Smile } from "lucide-react";
 import { z } from "zod";
 
 // Input validation schema
@@ -140,27 +139,41 @@ const Survey = () => {
   };
 
   const RatingScale = ({ name, value, onChange }: { name: string; value: string; onChange: (value: string) => void }) => (
-    <RadioGroup value={value} onValueChange={onChange} className="flex flex-wrap gap-2 justify-start">
+    <RadioGroup value={value} onValueChange={onChange} className="flex flex-wrap gap-3 justify-start">
       {[
-        { value: "1", label: "Strongly Disagree", color: "rating-1", icon: Frown },
-        { value: "2", label: "Disagree", color: "rating-2", icon: Frown },
-        { value: "3", label: "Neither Agree nor Disagree", color: "rating-3", icon: Meh },
-        { value: "4", label: "Agree", color: "rating-4", icon: Smile },
-        { value: "5", label: "Strongly Agree", color: "rating-5", icon: Smile },
-        { value: "na", label: "N/A", color: "muted", icon: Meh },
+        { value: "1", label: "Strongly Disagree", color: "rating-1", emoji: "😞" },
+        { value: "2", label: "Disagree", color: "rating-2", emoji: "🙁" },
+        { value: "3", label: "Neither Agree nor Disagree", color: "rating-3", emoji: "😐" },
+        { value: "4", label: "Agree", color: "rating-4", emoji: "🙂" },
+        { value: "5", label: "Strongly Agree", color: "rating-5", emoji: "😊" },
+        { value: "na", label: "N/A", color: "muted", emoji: "😶" },
       ].map((option) => {
-        const Icon = option.icon;
+        const isSelected = value === option.value;
         return (
-          <div key={option.value} className="flex flex-col items-center gap-1">
-            <RadioGroupItem
-              value={option.value}
-              id={`${name}-${option.value}`}
-              className={`w-12 h-12 border-2 ${value === option.value ? `bg-${option.color} border-${option.color}` : 'border-border'}`}
-            />
-            <Label htmlFor={`${name}-${option.value}`} className="text-xs text-center max-w-[80px] cursor-pointer">
-              <Icon className={`w-6 h-6 mx-auto mb-1 ${value === option.value ? `text-${option.color}` : 'text-muted-foreground'}`} />
-              {option.label}
+          <div key={option.value} className="flex flex-col items-center gap-2">
+            <Label 
+              htmlFor={`${name}-${option.value}`} 
+              className={`cursor-pointer transition-all duration-200 ${isSelected ? 'scale-110' : 'hover:scale-105'}`}
+            >
+              <div className={`
+                w-16 h-16 rounded-full flex items-center justify-center text-3xl
+                border-2 transition-all duration-200
+                ${isSelected 
+                  ? `bg-${option.color} border-${option.color} shadow-lg` 
+                  : 'bg-muted/50 border-border hover:border-muted-foreground'
+                }
+              `}>
+                {option.emoji}
+              </div>
+              <RadioGroupItem
+                value={option.value}
+                id={`${name}-${option.value}`}
+                className="sr-only"
+              />
             </Label>
+            <span className={`text-xs text-center max-w-[85px] leading-tight ${isSelected ? 'font-semibold' : 'text-muted-foreground'}`}>
+              {option.label}
+            </span>
           </div>
         );
       })}
