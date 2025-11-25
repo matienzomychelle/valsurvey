@@ -202,45 +202,78 @@ const Survey = () => {
       </div>
 
       {/* Sidebar Navigation */}
-      <div className="hidden lg:block w-64 bg-card/95 backdrop-blur-sm border-r border-border sticky top-0 h-screen overflow-hidden animate-slide-in-right">
-        <div className="p-6">
-          <Button 
-            type="button" 
-            variant="ghost" 
-            size="sm" 
-            onClick={() => navigate('/')}
-            className="w-full justify-start mb-6"
-          >
-            ← Back to Home
-          </Button>
+      <div className="hidden lg:block w-72 bg-card border-r border-border/50 sticky top-0 h-screen overflow-hidden shadow-xl">
+        <div className="h-full flex flex-col">
+          {/* Header */}
+          <div className="p-6 border-b border-border/50 bg-gradient-to-b from-muted/30 to-transparent">
+            <Button 
+              type="button" 
+              variant="ghost" 
+              size="sm" 
+              onClick={() => navigate('/')}
+              className="w-full justify-start mb-4 hover:bg-muted/70 transition-all"
+            >
+              ← Back to Home
+            </Button>
+            
+            <div className="space-y-1">
+              <h3 className="font-bold text-lg text-foreground">Survey Navigation</h3>
+              <p className="text-xs text-muted-foreground">Jump to any section</p>
+            </div>
+          </div>
           
-          <h3 className="font-bold text-sm text-muted-foreground mb-4">Survey Sections</h3>
-          
-          <div className="space-y-2">
+          {/* Navigation Links */}
+          <div className="flex-1 p-4 space-y-1">
             {[
-              { id: "client-info", label: "Client Information", icon: "👤" },
-              { id: "citizens-charter", label: "Citizen's Charter", icon: "📋" },
-              { id: "service-quality", label: "Service Quality", icon: "⭐" },
-              { id: "additional-feedback", label: "Additional Feedback", icon: "💬" },
-            ].map((section) => (
+              { id: "client-info", label: "Client Information", icon: "👤", description: "Personal details" },
+              { id: "citizens-charter", label: "Citizen's Charter", icon: "📋", description: "Awareness questions" },
+              { id: "service-quality", label: "Service Quality", icon: "⭐", description: "Rate our service" },
+              { id: "additional-feedback", label: "Additional Feedback", icon: "💬", description: "Comments & suggestions" },
+            ].map((section, index) => (
               <button
                 key={section.id}
                 onClick={() => {
                   const element = document.getElementById(section.id);
                   element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }}
-                className="w-full text-left px-4 py-3 rounded-lg hover:bg-muted/50 transition-colors flex items-center gap-3 group"
+                className="w-full text-left px-4 py-4 rounded-lg hover:bg-primary/10 transition-all duration-200 flex items-start gap-3 group border border-transparent hover:border-primary/20 hover:shadow-sm"
               >
-                <span className="text-2xl group-hover:scale-110 transition-transform">{section.icon}</span>
-                <span className="text-sm font-medium">{section.label}</span>
+                <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xl group-hover:scale-110 transition-transform flex-shrink-0">
+                  {section.icon}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-sm text-foreground mb-0.5 group-hover:text-primary transition-colors">
+                    {section.label}
+                  </div>
+                  <div className="text-xs text-muted-foreground">
+                    {section.description}
+                  </div>
+                </div>
+                <div className="text-muted-foreground text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  {String(index + 1).padStart(2, '0')}
+                </div>
               </button>
             ))}
           </div>
 
-          <div className="mt-8 p-4 bg-muted/50 rounded-lg">
-            <h4 className="font-semibold text-sm mb-2">Progress</h4>
-            <div className="text-xs text-muted-foreground">
-              {Object.values(formData).filter(v => v !== "").length} / {Object.keys(formData).length} fields completed
+          {/* Progress Footer */}
+          <div className="p-6 border-t border-border/50 bg-gradient-to-t from-muted/30 to-transparent">
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <h4 className="font-semibold text-sm text-foreground">Completion</h4>
+                <span className="text-xs font-medium text-primary">
+                  {Math.round((Object.values(formData).filter(v => v !== "").length / Object.keys(formData).length) * 100)}%
+                </span>
+              </div>
+              <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
+                <div 
+                  className="bg-primary h-full transition-all duration-500 rounded-full"
+                  style={{ width: `${(Object.values(formData).filter(v => v !== "").length / Object.keys(formData).length) * 100}%` }}
+                />
+              </div>
+              <p className="text-xs text-muted-foreground">
+                {Object.values(formData).filter(v => v !== "").length} of {Object.keys(formData).length} fields completed
+              </p>
             </div>
           </div>
         </div>
