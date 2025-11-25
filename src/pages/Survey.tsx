@@ -202,7 +202,7 @@ const Survey = () => {
       </div>
 
       {/* Sidebar Navigation */}
-      <div className="hidden lg:block w-64 bg-card/95 backdrop-blur-sm border-r border-border sticky top-0 h-screen overflow-y-auto animate-slide-in-right">
+      <div className="hidden lg:block w-64 bg-card/95 backdrop-blur-sm border-r border-border sticky top-0 h-screen overflow-hidden animate-slide-in-right">
         <div className="p-6">
           <Button 
             type="button" 
