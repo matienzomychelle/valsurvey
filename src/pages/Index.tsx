@@ -294,73 +294,114 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-br from-primary via-primary-dark to-primary text-primary-foreground py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
-            {/* City Info */}
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <img src={valenzuelaSeal} alt="City of Valenzuela Seal" className="w-16 h-16" />
+      <footer className="relative bg-gradient-to-br from-primary via-primary-dark to-primary text-primary-foreground overflow-hidden">
+        {/* Decorative Elements */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-primary-foreground rounded-full blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary-foreground rounded-full blur-3xl transform -translate-x-1/2 translate-y-1/2"></div>
+        </div>
+
+        <div className="container mx-auto px-4 py-16 relative z-10">
+          {/* Main Footer Content */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-12">
+            {/* Brand Section - Larger */}
+            <div className="lg:col-span-5">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-primary-foreground/20 rounded-2xl blur-xl group-hover:blur-2xl transition-all"></div>
+                  <img 
+                    src={valenzuelaSeal} 
+                    alt="City of Valenzuela Seal" 
+                    className="w-20 h-20 relative z-10 transform group-hover:scale-110 transition-transform duration-300" 
+                  />
+                </div>
                 <div>
-                  <h3 className="font-bold text-xl">City of Valenzuela</h3>
-                  <p className="text-sm opacity-90">ARTA CSS System</p>
+                  <h3 className="font-bold text-2xl mb-1">ValSurvey+</h3>
+                  <p className="text-sm opacity-90">City of Valenzuela</p>
+                  <p className="text-xs opacity-75 mt-1">ARTA CSS System</p>
                 </div>
               </div>
-              <p className="text-sm opacity-90 leading-relaxed mb-4">
+              <p className="text-sm opacity-90 leading-relaxed mb-6 max-w-md">
                 Digitizing citizen feedback for better public services. Your voice helps us build a more efficient and transparent local government.
               </p>
-              <div className="flex gap-4 text-sm">
-                <div className="flex items-center gap-2">
+              <div className="flex flex-wrap gap-3">
+                <div className="flex items-center gap-2 bg-primary-foreground/10 px-4 py-2 rounded-full backdrop-blur-sm border border-primary-foreground/20">
                   <Shield className="w-4 h-4" />
-                  <span>ARTA Compliant</span>
+                  <span className="text-xs font-medium">ARTA Compliant</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 bg-primary-foreground/10 px-4 py-2 rounded-full backdrop-blur-sm border border-primary-foreground/20">
                   <Lock className="w-4 h-4" />
-                  <span>DPA 2012</span>
+                  <span className="text-xs font-medium">DPA 2012</span>
                 </div>
               </div>
             </div>
 
             {/* Quick Links */}
-            <div>
-              <h3 className="font-bold text-lg mb-4">Quick Links</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <button onClick={() => navigate('/')} className="opacity-90 hover:opacity-100 hover:underline transition-opacity">
-                    Home
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => navigate('/about')} className="opacity-90 hover:opacity-100 hover:underline transition-opacity">
-                    About the Platform
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => setShowPrivacyDialog(true)} className="opacity-90 hover:opacity-100 hover:underline transition-opacity">
-                    Take the Survey
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => navigate('/privacy-policy')} className="opacity-90 hover:opacity-100 hover:underline transition-opacity">
-                    Privacy Policy
-                  </button>
-                </li>
+            <div className="lg:col-span-3">
+              <h3 className="font-bold text-lg mb-6 relative inline-block">
+                Quick Links
+                <div className="absolute -bottom-2 left-0 w-12 h-1 bg-primary-foreground/50 rounded-full"></div>
+              </h3>
+              <ul className="space-y-3">
+                {[
+                  { label: 'Home', action: () => navigate('/') },
+                  { label: 'About the Platform', action: () => navigate('/about') },
+                  { label: 'Take the Survey', action: () => setShowPrivacyDialog(true) },
+                  { label: 'Privacy Policy', action: () => navigate('/privacy-policy') }
+                ].map((link, index) => (
+                  <li key={index}>
+                    <button 
+                      onClick={link.action}
+                      className="text-sm opacity-90 hover:opacity-100 hover:translate-x-2 transition-all duration-300 flex items-center gap-2 group"
+                    >
+                      <div className="w-1.5 h-1.5 bg-primary-foreground rounded-full group-hover:w-3 transition-all"></div>
+                      {link.label}
+                    </button>
+                  </li>
+                ))}
               </ul>
             </div>
 
-            {/* Get in Touch */}
-            <div>
-              <h3 className="font-bold text-lg mb-4">Get in Touch</h3>
-              <div className="text-sm space-y-2">
-                <p className="font-semibold">City Government of Valenzuela</p>
-                <p className="opacity-90">Information and Communications Technology Office (ICTO)</p>
-                <p className="opacity-90 mt-4">icto@valenzuela.gov.ph</p>
+            {/* Contact Information */}
+            <div className="lg:col-span-4">
+              <h3 className="font-bold text-lg mb-6 relative inline-block">
+                Get in Touch
+                <div className="absolute -bottom-2 left-0 w-12 h-1 bg-primary-foreground/50 rounded-full"></div>
+              </h3>
+              <div className="space-y-4">
+                <div className="bg-primary-foreground/5 backdrop-blur-sm rounded-xl p-4 border border-primary-foreground/10 hover:bg-primary-foreground/10 transition-all">
+                  <p className="font-semibold mb-2">City Government of Valenzuela</p>
+                  <p className="text-sm opacity-90 mb-3">Information and Communications Technology Office (ICTO)</p>
+                  <a 
+                    href="mailto:icto@valenzuela.gov.ph"
+                    className="text-sm opacity-90 hover:opacity-100 flex items-center gap-2 group transition-all"
+                  >
+                    <div className="w-8 h-8 bg-primary-foreground/10 rounded-lg flex items-center justify-center group-hover:bg-primary-foreground/20 transition-all">
+                      <span className="text-xs">✉</span>
+                    </div>
+                    icto@valenzuela.gov.ph
+                  </a>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-primary-foreground/20 pt-6 text-center text-sm opacity-75">
-            <p>© 2025 ValSurvey+. All rights reserved.</p>
+          {/* Bottom Bar */}
+          <div className="border-t border-primary-foreground/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm opacity-75">© 2025 ValSurvey+. All rights reserved.</p>
+            <div className="flex items-center gap-6 text-xs opacity-75">
+              <button onClick={() => navigate('/privacy-policy')} className="hover:opacity-100 transition-opacity">
+                Privacy Policy
+              </button>
+              <span>•</span>
+              <button className="hover:opacity-100 transition-opacity">
+                Terms of Service
+              </button>
+              <span>•</span>
+              <button className="hover:opacity-100 transition-opacity">
+                Accessibility
+              </button>
+            </div>
           </div>
         </div>
       </footer>
