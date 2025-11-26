@@ -227,32 +227,63 @@ const Index = () => {
       </section>
 
       {/* Data Privacy & Compliance Section */}
-      <section className="py-16 bg-gradient-to-br from-background to-muted/10">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-card rounded-2xl shadow-lg p-8 md:p-12 border border-border/50 scroll-animate opacity-0 translate-y-8 transition-all duration-700">
-            <div className="flex flex-col md:flex-row gap-8 items-start">
-              <div className="flex gap-4 shrink-0">
-                <div className="w-16 h-16 bg-muted rounded-xl flex items-center justify-center">
-                  <Lock className="w-8 h-8 text-primary" />
-                </div>
-                <div className="w-16 h-16 bg-muted rounded-xl flex items-center justify-center">
-                  <Shield className="w-8 h-8 text-primary" />
-                </div>
+      <section className="py-20 bg-gradient-to-br from-background via-muted/20 to-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12 scroll-animate opacity-0 translate-y-8 transition-all duration-700">
+              <div className="inline-flex items-center gap-3 bg-primary/10 px-6 py-2 rounded-full mb-4">
+                <Shield className="w-5 h-5 text-primary" />
+                <span className="text-sm font-semibold text-primary uppercase tracking-wide">Secured & Compliant</span>
               </div>
-              <div className="flex-1">
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-                  Data Privacy & Compliance
-                </h2>
-                <p className="text-muted-foreground leading-relaxed mb-6">
-                  All responses are securely processed and protected under the{" "}
-                  <span className="font-semibold text-foreground">Data Privacy Act of 2012</span> and{" "}
-                  <span className="font-semibold text-foreground">ARTA guidelines</span>. Your information is confidential and used solely for improving government services.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  <Button variant="outline" onClick={() => navigate('/privacy-policy')} className="border-primary/30 hover:bg-primary/10">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                Data Privacy & Compliance
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Your trust is our priority. Every response is protected with enterprise-grade security.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <Card className="scroll-animate opacity-0 translate-y-8 transition-all duration-700 delay-100 border-primary/20 hover:shadow-xl hover:border-primary/40 transition-all group">
+                <CardHeader className="pb-4">
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <Lock className="w-7 h-7 text-primary" />
+                  </div>
+                  <CardTitle className="text-xl mb-2">Data Privacy Act of 2012</CardTitle>
+                  <CardDescription className="text-base leading-relaxed">
+                    Full compliance with Republic Act No. 10173. All personal information is collected, processed, and stored following strict privacy standards and regulations.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+
+              <Card className="scroll-animate opacity-0 translate-y-8 transition-all duration-700 delay-200 border-primary/20 hover:shadow-xl hover:border-primary/40 transition-all group">
+                <CardHeader className="pb-4">
+                  <div className="w-14 h-14 bg-gradient-to-br from-primary/20 to-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <Shield className="w-7 h-7 text-primary" />
+                  </div>
+                  <CardTitle className="text-xl mb-2">ARTA Guidelines</CardTitle>
+                  <CardDescription className="text-base leading-relaxed">
+                    Fully aligned with Anti-Red Tape Authority standards. Your feedback directly contributes to transparent and efficient government service delivery.
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </div>
+
+            <div className="bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5 rounded-2xl p-8 md:p-10 border border-primary/20 scroll-animate opacity-0 translate-y-8 transition-all duration-700 delay-300">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-foreground mb-3">Your Rights Are Protected</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Access, correct, or request deletion of your data anytime. Learn more about how we protect your information and your privacy rights.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-3 shrink-0">
+                  <Button onClick={() => navigate('/privacy-policy')} className="bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all">
+                    <Lock className="w-4 h-4 mr-2" />
                     Privacy Policy
                   </Button>
-                  <Button variant="outline" className="border-primary/30 hover:bg-primary/10">
+                  <Button variant="outline" className="border-primary/30 hover:bg-primary/10 hover:border-primary/50">
                     Terms of Use
                   </Button>
                 </div>
@@ -263,7 +294,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[hsl(210,50%,20%)] text-white py-12">
+      <footer className="bg-gradient-to-br from-primary via-primary-dark to-primary text-primary-foreground py-12">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8">
             {/* City Info */}
@@ -328,7 +359,7 @@ const Index = () => {
             </div>
           </div>
 
-          <div className="border-t border-white/20 pt-6 text-center text-sm opacity-75">
+          <div className="border-t border-primary-foreground/20 pt-6 text-center text-sm opacity-75">
             <p>© 2025 ValSurvey+. All rights reserved.</p>
           </div>
         </div>
