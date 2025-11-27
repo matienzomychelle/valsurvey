@@ -283,7 +283,7 @@ const Index = () => {
                     <Lock className="w-4 h-4 mr-2" />
                     Privacy Policy
                   </Button>
-                  <Button variant="outline" className="border-primary/30 hover:bg-primary/10 hover:border-primary/50">
+                  <Button variant="outline" onClick={() => navigate('/terms-of-use')} className="border-primary/30 hover:bg-primary/10 hover:border-primary/50">
                     Terms of Use
                   </Button>
                 </div>
@@ -347,7 +347,8 @@ const Index = () => {
                   { label: 'Home', action: () => navigate('/') },
                   { label: 'About the Platform', action: () => navigate('/about') },
                   { label: 'Take the Survey', action: () => setShowPrivacyDialog(true) },
-                  { label: 'Privacy Policy', action: () => navigate('/privacy-policy') }
+                  { label: 'Privacy Policy', action: () => navigate('/privacy-policy') },
+                  { label: 'Terms of Use', action: () => navigate('/terms-of-use') }
                 ].map((link, index) => (
                   <li key={index}>
                     <button 
@@ -394,7 +395,7 @@ const Index = () => {
                 Privacy Policy
               </button>
               <span>•</span>
-              <button className="hover:opacity-100 transition-opacity">
+              <button onClick={() => navigate('/terms-of-use')} className="hover:opacity-100 transition-opacity">
                 Terms of Service
               </button>
               <span>•</span>

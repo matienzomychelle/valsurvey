@@ -7,8 +7,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useToast } from "@/hooks/use-toast";
 import valenzuelaSeal from "@/assets/valenzuela-seal.png";
+import { Menu } from "lucide-react";
 import { z } from "zod";
 
 // Input validation schema
@@ -35,9 +38,62 @@ const surveySchema = z.object({
   email: z.string().email("Invalid email format").max(255).optional().or(z.literal("")),
 });
 
+const services = [
+  "Business Permit & Business Registration",
+  "Business Permit Renewal",
+  "Building Permit",
+  "Electrical Permit / Electrical Inspection (e-CFEI)",
+  "Occupancy Permit",
+  "Barangay Clearance (via barangays but processed for city requirements)",
+  "Zoning / Land Use Clearance",
+  "Fire Safety Inspection Certificate (coordinate with BFP)",
+  "Sanitary Permit",
+  "Birth Certificate Registration",
+  "Marriage Certificate Registration",
+  "Death Certificate Registration",
+  "Marriage License Application",
+  "Correction/Annotation of Civil Registry Records",
+  "Late Registration of Civil Records",
+  "Certified True Copy of Civil Registry Documents",
+  "Real Property Tax Payment",
+  "Real Property Tax Clearance",
+  "Business Tax Assessment & Payment",
+  "Transfer of Tax Declaration",
+  "Tax Mapping & Property Classification",
+  "Health Center Consultation (General)",
+  "Medical Assistance Programs",
+  "Laboratory / Diagnostic Requests (for eligible residents)",
+  "Vaccination Programs",
+  "Dental Services (preventive & basic procedures)",
+  "Hospital/Medical Referral Assistance",
+  "Solo Parent ID Issuance",
+  "PWD ID Application",
+  "Senior Citizen ID Registration",
+  "Financial Assistance / Medical, Burial, Emergency Aid",
+  "Scholarship / Educational Assistance Program",
+  "Feeding & Nutrition Support (for children)",
+  "Social Case Handling & Welfare Programs",
+  "Community Tax Certificate (Cedula)",
+  "Certificate of Residency (via barangay but City recognized)",
+  "Certificate of Indigency",
+  "Certificate of No Marriage (CENOMAR — requested via PSA but assisted locally)",
+  "Land Titling Assistance (selected programs)",
+  "Socialized Housing Application",
+  "Relocation Assistance (when applicable)",
+  "Housing Verification & Documentation Requests",
+  "Construction Approval & Inspection",
+  "Excavation Permit",
+  "Road Construction/Repair Requests",
+  "Drainage & Public Works Requests",
+  "Garbage / Waste Collection Requests",
+  "Environmental Compliance & Waste Management Clearances",
+  "Tree Cutting Permit / Urban Greening Programs",
+];
+
 const Survey = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [formData, setFormData] = useState({
     clientType: "",
     date: new Date().toISOString().split('T')[0],
@@ -192,6 +248,87 @@ const Survey = () => {
     </RadioGroup>
   );
 
+  const SidebarContent = () => (
+    <div className="h-full flex flex-col">
+      {/* Header */}
+      <div className="p-6 border-b border-border/50 bg-gradient-to-b from-muted/30 to-transparent">
+        <Button 
+          type="button" 
+          variant="ghost" 
+          size="sm" 
+          onClick={() => {
+            navigate('/');
+            setSidebarOpen(false);
+          }}
+          className="w-full justify-start mb-4 hover:bg-muted/70 transition-all"
+        >
+          ← Back to Home
+        </Button>
+        
+        <div className="space-y-1">
+          <h3 className="font-bold text-lg text-foreground">Survey Navigation</h3>
+          <p className="text-xs text-muted-foreground">Jump to any section</p>
+        </div>
+      </div>
+      
+      {/* Navigation Links */}
+      <div className="flex-1 p-4 space-y-1 overflow-y-auto">
+        {[
+          { id: "client-info", label: "Client Information", icon: "👤", description: "Personal details" },
+          { id: "citizens-charter", label: "Citizen's Charter", icon: "📋", description: "Awareness questions" },
+          { id: "service-quality", label: "Service Quality", icon: "⭐", description: "Rate our service" },
+          { id: "additional-feedback", label: "Additional Feedback", icon: "💬", description: "Comments & suggestions" },
+        ].map((section, index) => (
+          <button
+            key={section.id}
+            onClick={() => {
+              const element = document.getElementById(section.id);
+              element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              setSidebarOpen(false);
+            }}
+            className="w-full text-left px-4 py-4 rounded-lg hover:bg-primary/10 transition-all duration-200 flex items-start gap-3 group border border-transparent hover:border-primary/20 hover:shadow-sm"
+          >
+            <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xl group-hover:scale-110 transition-transform flex-shrink-0">
+              {section.icon}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="font-semibold text-sm text-foreground mb-0.5 group-hover:text-primary transition-colors">
+                {section.label}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {section.description}
+              </div>
+            </div>
+            <div className="text-muted-foreground text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+              {String(index + 1).padStart(2, '0')}
+            </div>
+          </button>
+        ))}
+      </div>
+
+      {/* Progress Footer */}
+      <div className="p-6 border-t border-border/50 bg-gradient-to-t from-muted/30 to-transparent">
+        <div className="space-y-3">
+          <div className="flex items-center justify-between">
+            <h4 className="font-semibold text-sm text-foreground">Completion</h4>
+            <span className="text-xs font-medium text-primary">
+              {Math.round((Object.values(formData).filter(v => v !== "").length / Object.keys(formData).length) * 100)}%
+            </span>
+          </div>
+          <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
+            <div 
+              className="bg-primary h-full transition-all duration-500 rounded-full"
+              style={{ width: `${(Object.values(formData).filter(v => v !== "").length / Object.keys(formData).length) * 100}%` }}
+            />
+          </div>
+          <p className="text-xs text-muted-foreground">
+            {Object.values(formData).filter(v => v !== "").length} of {Object.keys(formData).length} fields completed
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className="min-h-screen flex relative bg-gradient-to-br from-primary/5 via-background to-primary/10">
       {/* Decorative background elements */}
@@ -201,82 +338,25 @@ const Survey = () => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-primary/5 to-transparent rounded-full blur-3xl" />
       </div>
 
-      {/* Sidebar Navigation - Fixed */}
-      <div className="hidden lg:block w-72 bg-card border-r border-border/50 fixed left-0 top-0 h-screen overflow-hidden shadow-xl z-40">
-        <div className="h-full flex flex-col">
-          {/* Header */}
-          <div className="p-6 border-b border-border/50 bg-gradient-to-b from-muted/30 to-transparent">
-            <Button 
-              type="button" 
-              variant="ghost" 
-              size="sm" 
-              onClick={() => navigate('/')}
-              className="w-full justify-start mb-4 hover:bg-muted/70 transition-all"
-            >
-              ← Back to Home
-            </Button>
-            
-            <div className="space-y-1">
-              <h3 className="font-bold text-lg text-foreground">Survey Navigation</h3>
-              <p className="text-xs text-muted-foreground">Jump to any section</p>
-            </div>
-          </div>
-          
-          {/* Navigation Links */}
-          <div className="flex-1 p-4 space-y-1">
-            {[
-              { id: "client-info", label: "Client Information", icon: "👤", description: "Personal details" },
-              { id: "citizens-charter", label: "Citizen's Charter", icon: "📋", description: "Awareness questions" },
-              { id: "service-quality", label: "Service Quality", icon: "⭐", description: "Rate our service" },
-              { id: "additional-feedback", label: "Additional Feedback", icon: "💬", description: "Comments & suggestions" },
-            ].map((section, index) => (
-              <button
-                key={section.id}
-                onClick={() => {
-                  const element = document.getElementById(section.id);
-                  element?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }}
-                className="w-full text-left px-4 py-4 rounded-lg hover:bg-primary/10 transition-all duration-200 flex items-start gap-3 group border border-transparent hover:border-primary/20 hover:shadow-sm"
-              >
-                <div className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center text-xl group-hover:scale-110 transition-transform flex-shrink-0">
-                  {section.icon}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="font-semibold text-sm text-foreground mb-0.5 group-hover:text-primary transition-colors">
-                    {section.label}
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    {section.description}
-                  </div>
-                </div>
-                <div className="text-muted-foreground text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  {String(index + 1).padStart(2, '0')}
-                </div>
-              </button>
-            ))}
-          </div>
+      {/* Mobile Sidebar Trigger */}
+      <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
+        <SheetTrigger asChild>
+          <Button
+            variant="outline"
+            size="icon"
+            className="fixed top-4 left-4 z-50 lg:hidden shadow-lg"
+          >
+            <Menu className="h-5 w-5" />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left" className="p-0 w-72">
+          <SidebarContent />
+        </SheetContent>
+      </Sheet>
 
-          {/* Progress Footer */}
-          <div className="p-6 border-t border-border/50 bg-gradient-to-t from-muted/30 to-transparent">
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <h4 className="font-semibold text-sm text-foreground">Completion</h4>
-                <span className="text-xs font-medium text-primary">
-                  {Math.round((Object.values(formData).filter(v => v !== "").length / Object.keys(formData).length) * 100)}%
-                </span>
-              </div>
-              <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
-                <div 
-                  className="bg-primary h-full transition-all duration-500 rounded-full"
-                  style={{ width: `${(Object.values(formData).filter(v => v !== "").length / Object.keys(formData).length) * 100}%` }}
-                />
-              </div>
-              <p className="text-xs text-muted-foreground">
-                {Object.values(formData).filter(v => v !== "").length} of {Object.keys(formData).length} fields completed
-              </p>
-            </div>
-          </div>
-        </div>
+      {/* Desktop Sidebar - Fixed */}
+      <div className="hidden lg:block w-72 bg-card border-r border-border/50 fixed left-0 top-0 h-screen overflow-hidden shadow-xl z-40">
+        <SidebarContent />
       </div>
       
       {/* Main Content - with left margin to account for fixed sidebar */}
@@ -386,13 +466,93 @@ const Survey = () => {
                     </div>
                     <div>
                       <Label htmlFor="service">Service Availed *</Label>
-                      <Input
-                        id="service"
-                        placeholder="Service Availed"
-                        maxLength={200}
-                        value={formData.serviceAvailed}
-                        onChange={(e) => setFormData({...formData, serviceAvailed: e.target.value})}
-                      />
+                      <Select value={formData.serviceAvailed} onValueChange={(value) => setFormData({...formData, serviceAvailed: value})}>
+                        <SelectTrigger id="service">
+                          <SelectValue placeholder="Select a service" />
+                        </SelectTrigger>
+                        <SelectContent className="max-h-[300px]">
+                          <SelectItem value="licensing-permits-header" disabled className="font-semibold text-primary">
+                            Licensing & Permits
+                          </SelectItem>
+                          {services.slice(0, 9).map((service) => (
+                            <SelectItem key={service} value={service}>
+                              {service}
+                            </SelectItem>
+                          ))}
+                          
+                          <SelectItem value="civil-registry-header" disabled className="font-semibold text-primary mt-2">
+                            Civil Registry Services
+                          </SelectItem>
+                          {services.slice(9, 16).map((service) => (
+                            <SelectItem key={service} value={service}>
+                              {service}
+                            </SelectItem>
+                          ))}
+                          
+                          <SelectItem value="tax-revenue-header" disabled className="font-semibold text-primary mt-2">
+                            Tax & Revenue Services
+                          </SelectItem>
+                          {services.slice(16, 21).map((service) => (
+                            <SelectItem key={service} value={service}>
+                              {service}
+                            </SelectItem>
+                          ))}
+                          
+                          <SelectItem value="health-header" disabled className="font-semibold text-primary mt-2">
+                            Health-Related Services
+                          </SelectItem>
+                          {services.slice(21, 27).map((service) => (
+                            <SelectItem key={service} value={service}>
+                              {service}
+                            </SelectItem>
+                          ))}
+                          
+                          <SelectItem value="social-header" disabled className="font-semibold text-primary mt-2">
+                            Social Services
+                          </SelectItem>
+                          {services.slice(27, 34).map((service) => (
+                            <SelectItem key={service} value={service}>
+                              {service}
+                            </SelectItem>
+                          ))}
+                          
+                          <SelectItem value="id-cert-header" disabled className="font-semibold text-primary mt-2">
+                            ID & Certification Issuance
+                          </SelectItem>
+                          {services.slice(34, 38).map((service) => (
+                            <SelectItem key={service} value={service}>
+                              {service}
+                            </SelectItem>
+                          ))}
+                          
+                          <SelectItem value="housing-header" disabled className="font-semibold text-primary mt-2">
+                            Housing & Land Services
+                          </SelectItem>
+                          {services.slice(38, 42).map((service) => (
+                            <SelectItem key={service} value={service}>
+                              {service}
+                            </SelectItem>
+                          ))}
+                          
+                          <SelectItem value="infrastructure-header" disabled className="font-semibold text-primary mt-2">
+                            Infrastructure & Engineering Services
+                          </SelectItem>
+                          {services.slice(42, 46).map((service) => (
+                            <SelectItem key={service} value={service}>
+                              {service}
+                            </SelectItem>
+                          ))}
+                          
+                          <SelectItem value="environmental-header" disabled className="font-semibold text-primary mt-2">
+                            Environmental Services
+                          </SelectItem>
+                          {services.slice(46).map((service) => (
+                            <SelectItem key={service} value={service}>
+                              {service}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
                   </div>
                 </CardContent>
